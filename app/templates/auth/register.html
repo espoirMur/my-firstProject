@@ -1,0 +1,48 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block body %}
+<div class="content-section">
+    <br/>
+    {{ utils.flashed_messages() }}
+    <br/>
+    <div class="center">
+        <h4 style="text-align: center">Sign up for an account</h4>
+        <div id="formContainer">
+            {{ wtf.quick_form(form) }}
+            <div class="or-container">
+                <hr class="or-hr">
+                <div id="or">or Sign up With </div>
+            </div>
+
+            <div id="openid-buttons">
+                <a href="{{ url_for('auth.oauth_authorize',provider="google")  }}" >
+               <div class="major-provider   google-login" >
+                    <div class="icon-container"><span class="icon"></span></div>
+                    <div class="text"><span>Google</span></div>
+                    <br class="cbt">
+                </div>
+                </a>
+                 <a href="{{ url_for('auth.oauth_authorize',provider="facebook")  }}" >
+               <div class="major-provider   facebook-login" >
+                    <div class="icon-container"><span class="icon"></span></div>
+                    <div class="text"><span>Facebook</span></div>
+                    <br class="cbt">
+                </div>
+               </a>
+            </div>
+            <div class="cbt mute-text text-centered terms js-terms">
+
+                By registering, you agree to the <a name="privacy" href='#' target="_blank">privacy policy</a> and
+                <a name="tos" href=# target="_blank">terms of service</a>.
+            </div>
+
+        </div>
+        <div class="js-redirects" id="switch">
+            Already have an account? <a name="login" href="{{ url_for('auth.login') }}">Log in</a>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

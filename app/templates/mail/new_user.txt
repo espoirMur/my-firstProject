@@ -1,0 +1,8 @@
+Dear {{ employee.username}}
+Welcome to Revit Collaboration Tool!
+To confirm your account please click the following link:
+{{url_for ('auth.confirme',token=token,_external=True)}}
+Sincerly
+Me MySelf and I
+Espoir Murhabazi
+Please don't reply

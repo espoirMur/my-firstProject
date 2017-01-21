@@ -1,0 +1,40 @@
+{% import "bootstrap/utils.html" as utils %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block body %}
+<div class="content-section">
+    <br/>
+    {{ utils.flashed_messages() }}
+    <br/>
+    <div class="center">
+        <h4 style="text-align: center">Login to your account</h4>
+        <div id="formContainer">
+            {{ wtf.quick_form(form) }}
+            <div class="or-container">
+                <hr class="or-hr">
+                <div id="or">or Login With</div>
+            </div>
+            <div id="openid-buttons">
+                <a href="{{ url_for('auth.oauth_authorize',provider="google")  }}" >
+               <div class="major-provider   google-login" >
+                    <div class="icon-container"><span class="icon"></span></div>
+                    <div class="text"><span>Google</span></div>
+                    <br class="cbt">
+                </div>
+                </a>
+                 <a href="{{ url_for('auth.oauth_authorize',provider="facebook")  }}" >
+               <div class="major-provider   facebook-login" >
+                    <div class="icon-container"><span class="icon"></span></div>
+                    <div class="text"><span>Facebook</span></div>
+                    <br class="cbt">
+                </div>
+               </a>
+            </div>
+        </div>
+        <div class="js-redirects" id="switch">
+            forget your password ? <a name="login" href="{{ url_for('auth.reset_password_request') }}">Click here to reset</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

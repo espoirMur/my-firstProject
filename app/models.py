@@ -2,56 +2,66 @@ from flask_login import UserMixin,AnonymousUserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
 from app import db, log_manager,app_config
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from flask_sqlalchemy import event
+
 
 #for generating password token for confirmation
-
-class Departement(db.Model):
-    _tablename__ = 'departement'
+Working_on =db.Table(
+    'Working_on',
+    db.Column('Eng_id',db.Integer,db.ForeignKey('employee.id')),
+    db.Column('Order_id',db.Integer,db.ForeignKey('order.id')),
+    db.Column('Start_Date',db.Date),
+    db.Column('End_Date',db.Date)
+)
+class Order(db.Model):
+    _tablename__ = 'order'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60), unique=True)
+    status= db.Column(db.Boolean, default=False)
     description = db.Column(db.String(200))
-    employees = db.relationship('Employee', backref='departement', lazy='dynamic')
+    Date=db.Column(db.Date)
+    Requirement=db.Column(db.String(64))
+    workStation_id=db.Column(db.Integer,db.ForeignKey('workStation.id'))
+    engs=db.relationship("Employee",secondary=Working_on,back_populates="worksOn")
+    def validate(self):
+        pass
+    def change(self):
+        pass
+    def delete(self):
+        pass
     def __repr__(self):
         return '<Department: {}>'.format(self.name)
-class Role(db.Model):
-    __tablename__='role'
+
+class WorkStation(db.Model):
+    __tablename__='workStation'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True)
     description = db.Column(db.String(200))
-    permission = db.Column(db.Integer)
-    default=db.Column(db.Boolean,default=False,index=True)
-    employees = db.relationship('Employee', backref='role', lazy='dynamic')
-
+    GPU=db.Column(db.Integer)
+    RAM=db.Column(db.Integer)
+    Disk=db.Column(db.Integer)
+    orders = db.relationship('Order', backref='workStation', lazy='dynamic')
     def __repr__(self):
         return '<Role: {}>'.format(self.name)
-    @staticmethod
-    def insert_roles():
-        roles={'user':(Permission.FOLLOW |Permission.COMMENT |Permission.WRITE_ARTICLES,True),
-               'Moderator':(Permission.FOLLOW | Permission.COMMENT |Permission.WRITE_ARTICLES |Permission.MODERATE_COMMENTS,False),
-               'Administrator':(0xff,False)}
-        for r in roles :
-            role=Role.query.filter_by(name=r).first()
-            if role is None:
-                role=Role(name=r)
-            role.permission =roles[r][0]
-            role.default=roles[r][1]
-            db.session.add(role)
-        db.session.commit()
+
 class Employee(UserMixin,db.Model):
     __tablename__='employee'
     id = db.Column(db.Integer, primary_key=True )
     email = db.Column(db.String(60),index=True,unique=True)
-    username = db.Column(db.String(60),index=True,unique=True)
-    first_name = db.Column(db.String(60), index=True)
-    last_name = db.Column(db.String(60), index=True)
+    username = db.Column(db.String(60), index=True, unique=True)
+    names = db.Column(db.String(60), index=True)
     password_hash = db.Column(db.String(128))
-    departement_id = db.Column(db.Integer,db.ForeignKey('departement.id'))
-    role_id = db.Column(db.Integer,db.ForeignKey('role.id'))
     is_admin = db.Column(db.Boolean, default=False)
+    is_eng = db.Column(db.Boolean, default=False)
     confirmed = db.Column(db.Boolean, default=False)
     social_id=db.Column(db.String(64),nullable=True,unique=True)
+    adress = db.Column(db.String(256), nullable=True, unique=True)
+    country= db.Column(db.String(64), nullable=True, unique=True)
+    phone = db.Column(db.String(64), nullable=True, unique=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))  # if clients will save oders placed
+    validate_id = db.Column(db.Integer, db.ForeignKey('order.id')) #if admin will save orders validate by him
+    orders = db.relationship('Order',foreign_keys=[order_id])#contatins orders placed for clients
+    worksOn=db.relationship('Order',secondary=Working_on,back_populates="engs") # contains orders an engineer is working on
+    validate = db.relationship('Order', foreign_keys=[validate_id]) # contains orders validates by an admin
     def generate_confirmation_token(self,expiration=3600):
         s=Serializer("YouCantSeeMee.123",expiration)
         return s.dumps({'confirm':self.id})
@@ -116,48 +126,18 @@ class Employee(UserMixin,db.Model):
         return check_password_hash(self.password_hash,password)
     def __init__(self,**kwargs):
         super(Employee,self).__init__(**kwargs)
-        if self.role_id is None:
-            if self.email==app_config.get('development').FLASKY_ADMIN:
-                self.role_id=Role.query.filter_by(permission=0xff).first().id
-            if self.role_id is None:
-                self.role_id = Role.query.filter_by(default=True).first().id
-    """def can(self,permissions):
-        return self.role_id is not None and (self.role_id.permissions & permissions)==permissions
-    def is_admin(self):
-        return self.can(Permission.ADMINISTER)"""
+
+
     def __repr__(self):
         return '<Employee: {}>'.format(self.username)
-class Permission:
-    FOLLOW = 0x01
-    COMMENT = 0x02
-    WRITE_ARTICLES = 0x04
-    MODERATE_COMMENTS = 0x08
-    ADMINISTER = 0x80
-"""class AnonymuosUser(AnonymousUserMixin):
-    def can(self,permissions):
-        return False
-    def is_admin(self):
-        return False
-    log_manager.anonymous_user=AnonymousUser
-
-
-class OperationStatus(db.Model):
-    __tablename__='operationStatus'
-    id =db.Column(db.Integer,primary_key=True)
-    code=db.Column('code',db.String(20),nullable=True)
-    service=db.Column(db.String(20),nullable=False,default='facebook')
-class Operation(db.Model):
-    __tablename__='operation'
-    id = db.Column(db.Integer, primary_key=True)
-    operationStatus_id=db.Column(db.Integer,db.ForeignKey('operationStatus.id'))
-    employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
-    status = db.relationship("operationStatus",foreign_keys=operationStatus_id)
-    employees=db.relationship("employee",foreign_keys=employee_id)
-event.listen(
-        OperationStatus.__table__, 'after_create',
-        DDL(INSERT INTO  operationStatus (id,code) VALUES (1,'pending'),(2, 'ok'),(3, 'error'); )
-)"""
-
+    def validateOder(self):
+        #for admin
+        pass
+    def view_tasks(self):
+        #for engineer
+        pass
+    def assignToEngineer(self):
+        pass
 
 @log_manager.user_loader
 #call back fonction to load the user who is login from the database

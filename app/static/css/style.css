@@ -1,0 +1,225 @@
+body, html {
+    width: 100%;
+    height: 100%;
+}
+ h1, h2, h3 {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+}
+body {
+	font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+	font-size: 13px;
+	line-height: 1.3em;
+	color: #242729;
+	background: #FFF;
+	min-width: 1075px;
+}
+a, .navbar-default .navbar-brand, .navbar-default .navbar-nav>li>a {
+  color: #5385c2;
+}
+
+a:hover, .navbar-default .navbar-brand:hover, .navbar-default .navbar-nav>li>a:hover {
+  color: #3d4bc2;
+}
+#content {
+	min-height: 450px;
+	margin: 0 auto;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	width: 1060px;
+	padding: 15px;
+	background-color: #FFF;
+}
+
+footer {
+    padding: 50px 0;
+    background-color: #f8f8f8;
+}
+
+p.copyright {
+    margin: 15px 0 0;
+}
+
+.alert-info {
+    width: 50%;
+    margin: auto;
+    color: #3d4bc2;
+    background-color: #e6ecca;
+    border-color: #5385c2;
+}
+
+.btn-default {
+    border-color: #5385c2;
+    color: #5385c2;
+}
+
+.btn-default:hover {
+    background-color: #5385c2;
+}
+
+
+
+.content-section {
+    padding: 50px 0;
+    border-top: 1px solid #e7e7e7;
+}
+
+.footer, .push {
+  clear: both;
+  height: 4em;
+}
+
+.intro-divider {
+    width: 400px;
+    border-top: 1px solid #f8f8f8;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.intro-header {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+    color: #f8f8f8;
+    background: url(../img/intro-bg.jpg) no-repeat center center;
+    background-size: cover;
+    height: 100%;
+}
+
+.intro-message {
+    position: relative;
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+
+.intro-message > h1 {
+    margin: 0;
+    text-shadow: 2px 2px 3px rgba(8, 0, 44, 0.95);
+    font-size: 5em;
+}
+
+.intro-message > h3 {
+    text-shadow: 2px 2px 3px rgba(8, 0, 44, 0.6);
+}
+
+.lead {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.topnav {
+    font-size: 14px;
+}
+
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -4em;
+}
+.need-help {
+    float: right;
+    text-align: right;
+}
+.outer {
+    display: table;
+    position: absolute;
+    height: 70%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+}
+#formContainer {
+	width: 342px;
+	margin: 0 auto;
+	padding: 30px;
+	border: 1px solid #e4e6e8;
+	background: #FFF;
+}
+#formContainer::after {
+	clear: both;
+	content: " ";
+	display: block;
+}
+#or {
+	display: inline-block;
+	position: relative;
+	padding: 10px;
+	background-color: #FFF;
+}
+.or-hr {
+    margin-bottom: 0px;
+    position: relative;
+    top: 19px;
+    height: 0px;
+    border: 0;
+    border-top: 1px solid #e4e6e8;
+}
+.major-provider {
+	cursor: pointer;
+	border-radius: 3px;
+	width: 136px;
+	height: 38px;
+	line-height: 36px;
+	float: left;
+	margin: 8px 2px;
+	box-sizing: border-box;
+	border: 1px solid transparent;
+	text-align: center;
+}
+
+.google-login.major-provider {
+	background: #e0492f;
+}
+.facebook-login.major-provider {
+	background: #395697;
+}
+
+.cbt {
+    clear: both;
+}
+.text-centered {
+    text-align: center;
+}
+.mute-text {
+    color: #6a737c;
+}
+
+#switch {
+	padding: 20px;
+	border: 1px solid #e4e6e8;
+	width: 300px;
+	margin: 20px auto 100px auto;
+	background: #FFF;
+}
+#openid-buttons{
+width: 350px;
+}
+#explanation-text {
+margin: 0px auto 20px;
+width: 65%;
+line-height: 1.8;
+text-align: center
+}
+.icon {
+    background: url('../../img/openid/universal-login-sprite.svg?v=3ca03e653513');
+    display: inline-block;
+    width: 16px;
+    height: 16px;}
+.icon-container {
+    border-right: 1px solid rgba(12,13,14,0.1);
+    box-sizing: border-box;
+    width: 38px;
+    height: 100%;
+    line-height: 1;
+    padding: 10px 0;
+    float: left;
+}
