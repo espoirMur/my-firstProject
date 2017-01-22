@@ -3,14 +3,15 @@ from wtforms import PasswordField, StringField, SubmitField, ValidationError,Sel
 from wtforms.validators import DataRequired, Email, EqualTo
 from ..models import Employee
 from wtforms.fields.html5 import TelField
+from wtforms_alchemy import PhoneNumberField
+
 
 
 class PersonalInformation(FlaskForm):
-
     username = StringField('Username', validators=[DataRequired()])
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
-    phone = StringField('Phone Number', [validators.Regexp(r'^0[0-9]([ .-]?[0-9]{2}){4}$')])
+    phone = PhoneNumberField(region='FI', display_format='national')
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm_password')])
     confirm_password = PasswordField('Confirm Password')
 class BuisnessInformation(FlaskForm):
@@ -27,6 +28,7 @@ class RegistrationForm(FlaskForm):
     names = StringField('Names', validators=[DataRequired()])
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
+    phone = PhoneNumberField(region='FI', display_format='national')
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm_password')])
     confirm_password = PasswordField('Confirm Password')
     submit = SubmitField('Sign Up')
