@@ -8,6 +8,8 @@ from flask_sqlalchemy import get_debug_queries
 from app import app_config
 import os
 import app
+from datetime import date
+
 from ..controller import send_mail_flask,AuthSignIn
 
 
@@ -19,7 +21,8 @@ def register():
         employee = Employee(names=form.names.data,
                             username=form.username.data,
                             email=form.email.data,
-                            password=form.password.data)
+                            password=form.password.data,
+                            registration_date=date.today())
         try :
             db.session.add(employee)
             db.session.commit()
@@ -58,8 +61,7 @@ def login():
             if employee.is_admin:
                 return redirect(url_for('home.admin_dashboard'))
             else:
-                return redirect(url_for('home.dashboard'))
-
+                return redirect(url_for('client.myDashboard'))
         # when login details are incorrect
         else:
             flash('Invalid email or password.',category="error")
@@ -103,7 +105,7 @@ def before_request():
 @auth.route('/unconfirmed')
 def unconfirmed():
     if current_user.is_anonymous or current_user.confirmed:
-        return redirect(url_for('home.homepage'))
+        return redirect(url_for('client.myDashboard'))
     return render_template('auth/unconfirmed.html',employee=current_user)
 
 @auth.route('/confirm')
@@ -180,7 +182,7 @@ def oauth_authorize(provider):
 @auth.route('/callback/<provider>')
 def oauth_callback(provider):
     if not current_user.is_anonymous:
-        return redirect(url_for('home.homepage'))
+        return redirect(url_for('client.myDashboard',employee=current_user))
     oauth= AuthSignIn.get_provider(AuthSignIn,provider)
     social_id,username,email,names=oauth.callback()
     if email is None:
@@ -195,7 +197,7 @@ def oauth_callback(provider):
     else:
         flash("Authentification succesfull")
         login_user(user, True)
-        return redirect(url_for('home.homepage'))
+        return redirect(url_for('client.myDashboard'))
     flash("Authentification succefull")
     return redirect(url_for('home.homepage'))
 

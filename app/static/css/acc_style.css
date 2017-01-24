@@ -1,0 +1,768 @@
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+}
+html {
+	font-family: sans-serif;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+button {
+	overflow: visible;
+}
+button, select {
+	text-transform: none;
+}
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+*::before, *::after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+*, *::before, *::after {
+	box-sizing: inherit;
+}
+a {
+	background-color: transparent;
+}
+button, html input[type='button'], input[type='reset'], input[type='submit'] {
+	-webkit-appearance: button;
+	cursor: pointer;
+}
+html {
+	box-sizing: border-box;
+}
+.vx_text-body, p, li, dd, dt, label, input, textarea, pre, code {
+	font-size: 0.93rem;
+	line-height: 1.6;
+	font-weight: 400;
+	text-transform: none;
+	font-family: "PayPal-Sans", sans-serif;
+	letter-spacing: 0.02em;
+}
+li {
+	line-height: 1.6;
+}
+ul, ol {
+	padding: 0;
+	margin: 0 0 0.8rem 25px;
+}
+.row {
+	margin-left: -15px;
+	margin-right: -15px;
+}
+.container-fluid {
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.clearfix, .container, .container-fluid, .row, .modal-header, .modal-footer {
+	*zoom: 1: ;
+}
+.clearfix, .container, .container-fluid, .row, .modal-header, .modal-footer {
+	*zoom: 1: ;
+}
+.container-fluid {
+	padding: 0;
+}
+.vx_panel, .vx_panel-well {
+	min-height: 1.33rem;
+	padding: 1.2rem;
+	margin-bottom: 1.33rem;
+	display: table;
+	width: 100%;
+}
+.profile-avatarPhotoContainer {
+	background: #50c7f9;
+}
+.clearfix::before, .clearfix::after, .container::before, .container::after, .container-fluid::before, .container-fluid::after, .row::before, .row::after, .modal-header::before, .modal-header::after, .modal-footer::before, .modal-footer::after {
+	content: " ";
+	display: table;
+}
+.clearfix::after, .container::after, .container-fluid::after, .row::after, .modal-header::after, .modal-footer::after {
+	clear: both;
+}
+.clearfix::before, .clearfix::after, .container::before, .container::after, .container-fluid::before, .container-fluid::after, .row::before, .row::after, .modal-header::before, .modal-header::after, .modal-footer::before, .modal-footer::after {
+	display: table;
+	content: "";
+	line-height: 0;
+}
+.clearfix::after, .container::after, .container-fluid::after, .row::after, .modal-header::after, .modal-footer::after {
+	clear: both;
+}
+.clearfix::before, .clearfix::after, .container::before, .container::after, .container-fluid::before, .container-fluid::after, .row::before, .row::after, .modal-header::before, .modal-header::after, .modal-footer::before, .modal-footer::after {
+	display: table;
+	content: "";
+	line-height: 0;
+}
+.clearfix::after, .container::after, .container-fluid::after, .row::after, .modal-header::after, .modal-footer::after {
+	clear: both;
+}
+button {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-smoothing: antialiased;
+}
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+	position: relative;
+	min-height: 1px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+/* @media all and (min-width:768px) */
+.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+	float: left;
+}
+/* @media all and (min-width:768px) */
+.col-sm-6 {
+	width: 50%;
+}
+.settings li {
+	cursor: pointer;
+	list-style-type: none;
+}
+.settings .row {
+	margin: 0;
+}
+.settings .account::before, .settings .security::before, .settings .paymentsTab::before {
+	content: "\00a0 ";
+}
+.settings .stage .panel {
+	display: none;
+}
+.settings .stage .active.panel {
+	display: block;
+}
+.vx_mainContent {
+	max-width: 1170px;
+	margin: 0 auto;
+	padding: 72px 0 9rem;
+	position: relative;
+}
+.settings .stage {
+	max-width: 1024px;
+	margin: 0 auto;
+	padding-top: 0px;
+}
+.settings {
+	font-family: "PayPal-Sans", sans-serif;
+}
+.contents > section:first-child, .contents > div:first-child {
+	height: 100%;
+	margin: auto;
+	padding-top: 62px;
+	padding-bottom: 80px;
+	float: none;
+}
+[role='main'].contents {
+	min-height: 99.7%;
+	margin: auto;
+	float: none;
+	-webkit-transition: margin 0.5s ease-in-out;
+	-moz-transition: margin 0.5s ease-in-out;
+	-ms-transition: margin 0.5s ease-in-out;
+	-o-transition: margin 0.5s ease-in-out;
+	transition: margin 0.5s ease-in-out;
+}
+.contents.container-fluid, .panelContainer, .whiteOverlayMask {
+	-webkit-transition: all 250ms ease;
+	-moz-transition: all 250ms ease;
+	-ms-transition: all 250ms ease;
+	-o-transition: all 250ms ease;
+	transition: all 250ms ease;
+}
+.contents.container-fluid, .panelContainer, .whiteOverlayMask {
+	-moz-transition: all 250ms ease;
+	-ms-transition: all 250ms ease;
+	-webkit-transition: all 250ms ease;
+	-o-transition: all 250ms ease;
+	transition: all 250ms ease;
+}
+.vx_foreground-container {
+	position: relative;
+	min-height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	z-index: 800;
+	background: #f5f7fa;
+	-webkit-transition: left 250ms, right 250ms;
+	-moz-transition: left 250ms, right 250ms;
+	-ms-transition: left 250ms, right 250ms;
+	-o-transition: left 250ms, right 250ms;
+	transition: left 250ms, right 250ms;
+}
+.foreground-container {
+	background: #f8f8f8;
+}
+html, body {
+	height: 100%;
+}
+body {
+	font-size: inherit !important;
+	font-family: "PayPal-Sans", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-smoothing: antialiased;
+}
+body {
+	background-color: #0070ba;
+	background-image: linear-gradient(10deg, #0070ba, #1546a0);
+	background-repeat: no-repeat;
+}
+html, body {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-smoothing: antialiased;
+}
+html {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+html {
+	background: #f8f8f8;
+	font-size: 16px;
+}
+/* @media all and (min-width:768px) */
+.col-sm-4 {
+	width: 33.33%;
+}
+/* @media all and (min-width:768px) */
+.col-sm-8 {
+	width: 66.66%;
+}
+/* @media all and (min-width:992px) */
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+	float: left;
+}
+/* @media all and (min-width:992px) */
+.col-md-6 {
+	width: 50%;
+}
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
+	float: left;
+}
+.col-xs-7 {
+	width: 58.33%;
+}
+.col-xs-5 {
+	width: 41.66%;
+}
+.ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+/* @media all and (min-width:992px) */
+.col-md-12 {
+	width: 100%;
+}
+.col-xs-12 {
+	width: 100%;
+}
+.col-xs-8 {
+	width: 66.66%;
+}
+.col-xs-4 {
+	width: 33.33%;
+}
+form .nativeDropdown {
+	font-size: 0.85em;
+	font-size: 0.93rem;
+	line-height: 1.4em;
+}
+/* @media all and (min-width:992px) */
+.col-md-3 {
+	width: 25%;
+}
+/* @media all and (min-width:992px) */
+.col-md-9 {
+	width: 75%;
+}
+.vx_btn-link {
+	background: none;
+	border: none;
+	color: #0070ba;
+	font-weight: 500;
+	padding: 0;
+}
+.settings .col-xs-1, .settings .col-sm-1, .settings .col-md-1, .settings .col-lg-1, .settings .col-xs-2, .settings .col-sm-2, .settings .col-md-2, .settings .col-lg-2, .settings .col-xs-3, .settings .col-sm-3, .settings .col-md-3, .settings .col-lg-3, .settings .col-xs-4, .settings .col-sm-4, .settings .col-md-4, .settings .col-lg-4, .settings .col-xs-5, .settings .col-sm-5, .settings .col-md-5, .settings .col-lg-5, .settings .col-xs-6, .settings .col-sm-6, .settings .col-md-6, .settings .col-lg-6, .settings .col-xs-7, .settings .col-sm-7, .settings .col-md-7, .settings .col-lg-7, .settings .col-xs-8, .settings .col-sm-8, .settings .col-md-8, .settings .col-lg-8, .settings .col-xs-9, .settings .col-sm-9, .settings .col-md-9, .settings .col-lg-9, .settings .col-xs-10, .settings .col-sm-10, .settings .col-md-10, .settings .col-lg-10, .settings .col-xs-11, .settings .col-sm-11, .settings .col-md-11, .settings .col-lg-11, .settings .col-xs-12, .settings .col-sm-12, .settings .col-md-12, .settings .col-lg-12 {
+	padding-left: 0px;
+}
+.settings .section {
+	padding-left: 0.8em;
+}
+.settings .vx_panel {
+	margin: 1.6em 0 1.2em 0;
+	overflow: hidden;
+	position: relative;
+	border-radius: 0;
+}
+.settings .vx_panel-address {
+	padding-bottom: 1.3em;
+}
+.settings .account .vx_panel, .settings .security .vx_panel, .settings .paymentsTab .vx_panel, .settings .logInWithPaypal .vx_panel {
+	background: #ffffff;
+}
+.settings .top.section > :first-child.vx_panel {
+	margin-top: 0px;
+}
+a, a:visited {
+	color: #0070ba;
+	text-decoration: none;
+	font-weight: 500;
+	font-family: "PayPal-Sans", sans-serif;
+}
+[role='button'] {
+	cursor: pointer;
+}
+a:active, a:focus, a:hover {
+	color: #005ea6;
+	text-decoration: underline;
+}
+.settings a.plus {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	line-height: 0.5em;
+	color: #2c2e2f;
+	font-size: 2.5em;
+	font-weight: 200;
+}
+.settings ul.unstyled {
+	margin-bottom: 0px;
+}
+.settings .account .emails, .settings .account .phones {
+	margin-left: 0px;
+}
+.settings .vx_panel li {
+	margin-left: 0px;
+	padding-left: 0px;
+	float: none;
+	line-height: 1.5em;
+}
+.settings ul.lined li {
+	padding: 10px 0;
+	border-bottom: 1px solid #dddddd;
+}
+.settings .vx_panel li:first-child {
+	padding-left: 0px;
+}
+.settings .options ul.lined li {
+	padding-top: 0px;
+	height: 3.8em;
+	line-height: 3.8em;
+}
+.settings ul.lined li:first-child {
+	padding-top: 0px;
+}
+.settings ul.lined li:last-child {
+	border: none;
+	padding-bottom: 0px;
+}
+.settings .status {
+	color: #666666;
+}
+.hide {
+	display: none;
+}
+.vx_h3 {
+	font-size: 1.25rem;
+	line-height: 1.5;
+	font-weight: 400;
+	text-transform: none;
+	font-family: "PayPal-Sans-Big", sans-serif;
+}
+.settings .profileDetail-joinedSince {
+	color: #2c2e2f;
+}
+.settings .vx_panel p {
+	margin: 0;
+	line-height: 1.6em;
+}
+.settings .vx_panel .modify, .settings .vx_panel .links {
+	text-align: right;
+}
+.settings .vx_panel .links {
+	text-align: right;
+}
+p > a, li > a {
+	font-weight: 500;
+	font-family: "PayPal-Sans", sans-serif;
+}
+.settings .vx_panel .links a {
+	padding: 0 0.5em;
+	border-right: 1px solid #2c2e2f;
+}
+.settings .vx_panel .links a:first-child {
+	padding-left: 0px;
+}
+.settings .vx_panel .links a:last-child {
+	border: none;
+}
+.icon {
+	font-family: "consumer-icons";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.icon {
+	font-family: "consumer-icons";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.icon-profile-add-large::before {
+	content: "\e038";
+}
+.settings .icon {
+	height: 100%;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+.settings .status {
+	color: #3ea134;
+}
+.emailWarning {
+	font-size: 13px;
+}
+.settings .vx_panel p.x-small {
+	letter-spacing: normal;
+	padding-bottom: 0.5em;
+}
+h2, .vx_text-2 {
+	font-size: 1.87rem;
+	line-height: 1.4;
+	font-weight: 300;
+	text-transform: none;
+	font-family: "PayPal-Sans-Big", sans-serif;
+}
+.vx_panel-header, .vx_panel-text, .vx_panel-action {
+	color: #2c2e2f;
+	margin: 0;
+	font-family: "PayPal-Sans", sans-serif;
+	line-height: 1.5rem;
+	font-size: 0.81rem;
+	font-weight: 600;
+}
+.settings .vx_panel h2 {
+	margin-bottom: 0.75em;
+	line-height: 102%;
+	font-size: 1.25em;
+	font-weight: 300;
+}
+.accessAid {
+	position: absolute !important;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip: rect(1px, 1px, 1px, 1px);
+	padding: 0 !important;
+	border: 0 !important;
+	height: 1px !important;
+	width: 1px !important;
+	overflow: hidden;
+}
+.noflip_ltr {
+	direction: ltr;
+}
+.ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.noflip_ltr {
+	direction: ltr;
+}
+a:focus {
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+.settings .addresses {
+	margin: 0;
+}
+.settings .addresses .addressWrapper.addressWrapper {
+	margin-bottom: 3em;
+	float: left;
+	position: relative;
+	word-wrap: break-word;
+	max-width: 19.07rem;
+	min-height: 125px;
+}
+/* @media all and (min-width:768px) */
+.settings .addresses :nth-child(2n).addressWrapper.addressWrapper {
+	border-left: thin solid #9da3a6;
+	padding-left: 2em;
+}
+.settings .addresses :nth-last-child(2):nth-child(2n+1).addressWrapper.addressWrapper, .settings .addresses :last-child:nth-child(2n).addressWrapper.addressWrapper {
+	margin-bottom: 0px;
+}
+.settings .addresses .addressWrapper.addressWrapper .undo {
+	display: none;
+}
+.settings .vx_panel p.modify {
+	position: absolute;
+}
+.settings .vx_panel .type {
+	font-weight: 500;
+}
+.settings .options .type, .settings .options .languageLabel, .settings .options .timezoneLabel, .settings .options .taxIdValue, .settings .options .merchantIdValue, .settings .options .links {
+	line-height: 3.5em;
+}
+.settings .options .options-row > p, .settings .options .options-row > a {
+	display: block;
+	height: 100%;
+	line-height: 3.5em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+/* @media all and (min-width:1024px) */
+.settings .visible-col-xs-12.visible-col-xs-12 {
+	display: none;
+}
+.settings .closeAccount-link {
+	display: block;
+	line-height: 3.5em;
+	text-align: right;
+}
+.hide {
+	display: none !important;
+}
+.ltr {
+	direction: ltr;
+}
+form .nativeDropdown {
+	position: relative;
+	margin: 10px 0;
+	font-size: 0.8em;
+	font-size: 0.87rem;
+	line-height: 1.42em;
+}
+.js .lap.nativeDropdown {
+	margin: 15px 0;
+}
+.settings .lap.nativeDropdown {
+	margin: 0;
+}
+.js .enhanced .selectDropdown {
+	position: relative;
+}
+.settings .options .optionsDropdown, .settings .options .selectDropdown {
+	margin-top: 3px;
+}
+.selectDropdown {
+	display: block;
+	overflow: hidden;
+	width: 100%;
+	margin: 0;
+	border: 1px solid #ccd0d4;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-background-clip: padding-box;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	background: url('https://www.paypalobjects.com/webstatic/i/sprite/sprite_ui.png') no-repeat scroll right -1687px, -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f2f2f2)) 0 0;
+	background: url('https://www.paypalobjects.com/webstatic/i/sprite/sprite_ui.png') no-repeat scroll right -1687px, -webkit-linear-gradient(top, #ffffff, #f2f2f2) 0 0;
+	background: url('https://www.paypalobjects.com/webstatic/i/sprite/sprite_ui.png') no-repeat scroll right -1687px, -moz-linear-gradient(top, #ffffff, #f2f2f2) 0 0;
+	background: url('https://www.paypalobjects.com/webstatic/i/sprite/sprite_ui.png') no-repeat scroll right -1687px, -ms-linear-gradient(top, #ffffff, #f2f2f2) 0 0;
+	background: url('https://www.paypalobjects.com/webstatic/i/sprite/sprite_ui.png') no-repeat scroll right -1687px, -o-linear-gradient(top, #ffffff, #f2f2f2) 0 0;
+	background-color: #ffffff;
+}
+.selectDropdown {
+	height: 44px;
+	position: relative;
+	border-color: #9da3a6;
+	background: #ffffff;
+	font-family: "consumer-icons";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.icon-arrow-down-small::before {
+	content: "\e005";
+}
+.selectDropdown::before {
+	position: absolute;
+	right: 9px;
+	top: 10px;
+	font-size: 0.91em;
+	font-size: 1rem;
+	line-height: 1.31em;
+}
+.icon-arrow-down-small::before {
+	content: "\e005";
+}
+form .nativeDropdown label {
+	display: block;
+	margin: 0;
+	line-height: 1.76em;
+	font-weight: normal;
+	color: #666;
+}
+.js .lap.nativeDropdown label {
+	position: absolute !important;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip: rect(1px, 1px, 1px, 1px);
+	padding: 0 !important;
+	border: 0 !important;
+	height: 1px !important;
+	width: 1px !important;
+	overflow: hidden;
+}
+button, input, optgroup, select, textarea {
+	color: inherit;
+	font: inherit;
+	margin: 0;
+}
+select, textarea, input[type='text'], input[type='password'], input[type='datetime'], input[type='datetime-local'], input[type='date'], input[type='month'], input[type='time'], input[type='week'], input[type='number'], input[type='email'], input[type='SIN'], input[type='SSN'], input[type='CPF'], input[type='EIN'], input[type='ITIN'], input[type='PAN'], input[type='url'], input[type='search'], input[type='tel'], input[type='color'], .uneditable-input {
+	display: inline-block;
+	height: 21px;
+	padding: 4px 6px;
+	margin-bottom: 9px;
+	font-size: 15px;
+	line-height: 21px;
+	color: #555555;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+.selectDropdown select {
+	width: 135%;
+	border: 0 none;
+	margin: 0;
+	padding: 7px 0 10px 10px;
+	height: 2.46em;
+	background: none;
+	position: relative;
+	-webkit-appearance: none;
+	-moz-appearance: window;
+	color: #333333;
+	font: 1em Arial;
+	line-height: 1.23em;
+	z-index: 1;
+}
+.selectDropdown select {
+	height: 44px;
+}
+.js .enhanced .selectDropdown select {
+	opacity: 0;
+	z-index: 10;
+	padding-left: 0px;
+	filter: alpha(opacity=0);
+	width: 100%;
+}
+.js .enhanced .selectDropdown .custom-select {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	line-height: 2.61em;
+	width: 100%;
+	padding-left: 12px;
+	z-index: 1;
+	overflow: hidden;
+	padding-right: 35px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.js .enhanced .selectDropdown .custom-select {
+	height: 44px;
+	line-height: 44px;
+	font-family: "PayPal-Sans", sans-serif;
+}
+.js .enhanced .selectDropdown .custom-select {
+	padding-right: 23px;
+}
+.selectDropdown option {
+	background-color: #fff;
+	color: #666;
+	padding: 6px 10px;
+}
+/* @media all and (min-width:768px) */
+.settings .profile-detailColumn {
+	padding-left: 2em;
+}
+.settings .profileDetail-container {
+	padding-bottom: 0.7em;
+	border-bottom: thin solid #9da3a6;
+}
+.vx_h1, .vx_h2, .vx_h3, .vx_h4 {
+	-webkit-font-smoothing: antialiased;
+}
+.settings .profile-avatarRow {
+	width: 7em;
+	height: 7em;
+	margin: 0em 2em 0em 0;
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	overflow: hidden;
+	cursor: pointer;
+	border-radius: 50%;
+}
+.settings .profile-updatePhotoLink {
+	display: block;
+	width: 7em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	text-align: center;
+	font-weight: normal;
+}
+.profile-avatarPhotoContainer .profilePhotoParent {
+	position: relative;
+	display: block;
+	width: 7em;
+	height: 7em;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.profile-avatarRow .icon {
+	overflow: hidden;
+	position: absolute;
+	height: 7em;
+	width: 7em;
+	border-radius: 50%;
+	background-color: #4cbbe8;
+}
+.profile-avatarRow .icon::before {
+	display: block;
+	margin: 50px 0 0 -18px;
+	font-size: 115px;
+	color: #0079ad;
+}

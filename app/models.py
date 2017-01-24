@@ -2,7 +2,7 @@ from flask_login import UserMixin,AnonymousUserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
 from app import db, log_manager,app_config
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-
+from datetime import date
 
 #for generating password token for confirmation
 Working_on =db.Table(
@@ -12,6 +12,23 @@ Working_on =db.Table(
     db.Column('Start_Date',db.Date),
     db.Column('End_Date',db.Date)
 )
+class Address(db.Model):
+    _tablename__ = 'address'
+    id = db.Column(db.Integer, primary_key=True)
+    line1 = db.Column(db.String(60), index=True,nullable=True)
+    line2 = db.Column(db.String(60), nullable=True)
+    city =db.Column(db.String(60), nullable=True)
+    country =db.Column(db.String(60), nullable=True)
+    postal_code=db.Column(db.String(60))
+class Company(db.Model):
+    __tablename__='company'
+    id = db.Column(db.Integer, primary_key=True)
+    companyName = db.Column(db.String(64), nullable=True)
+    Website = db.Column(db.String(64), nullable=True)
+    description=db.Column(db.String(128), nullable=True)
+    country = db.Column(db.String(64), nullable=True, unique=False)
+
+
 class Order(db.Model):
     _tablename__ = 'order'
     id = db.Column(db.Integer, primary_key=True)
@@ -54,14 +71,17 @@ class Employee(UserMixin,db.Model):
     is_eng = db.Column(db.Boolean, default=False)
     confirmed = db.Column(db.Boolean, default=False)
     social_id=db.Column(db.String(64),nullable=True,unique=True)
-    adress = db.Column(db.String(256), nullable=True, unique=True)
-    country= db.Column(db.String(64), nullable=True, unique=True)
     phone = db.Column(db.String(64), nullable=True, unique=True)
+    registration_date=db.Column(db.Date,nullable=False,default=date.today())
+    company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
+    address_id=db.Column(db.Integer, db.ForeignKey('address.id'))
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))  # if clients will save oders placed
     validate_id = db.Column(db.Integer, db.ForeignKey('order.id')) #if admin will save orders validate by him
     orders = db.relationship('Order',foreign_keys=[order_id])#contatins orders placed for clients
     worksOn=db.relationship('Order',secondary=Working_on,back_populates="engs") # contains orders an engineer is working on
     validate = db.relationship('Order', foreign_keys=[validate_id]) # contains orders validates by an admin
+    address=db.relationship('Address', foreign_keys=[address_id]) #contain user adress
+    address = db.relationship('Company', foreign_keys=[company_id])
     def generate_confirmation_token(self,expiration=3600):
         s=Serializer("YouCantSeeMee.123",expiration)
         return s.dumps({'confirm':self.id})

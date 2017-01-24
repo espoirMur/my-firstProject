@@ -46,12 +46,11 @@
                     <li><a href="{{ url_for('admin.list_departements') }}">Clients </a></li>
                     <li><a href="{{ url_for('admin.list_roles') }}">Engineers</a></li>
                     {% else %}
-                    <li><a href="{{ url_for('home.dashboard') }}">My Dashboard</a></li>
+                    <li><a href="{{ url_for('client.myDashboard') }}">My Dashboard</a></li>
                     {% endif %}
                     <!--li><a href="">Change Password</a></--li-->
-                    <li><a href="{{ url_for('auth.change_email_request') }}">My Account</a></li>
                     <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-                    <li><a href="{{ url_for('home.dashboard') }}">Hi, {{ current_user.username }}!</a></li>
+                    <li><a href="{{ url_for('client.myDashboard') }}">Hi, {{ current_user.username }}!</a></li>
                     {% else %}
                     <li><a href="{{ url_for('home.homepage') }}">Home</a></li>
                     <li><a href="{{ url_for('auth.register') }}">Register</a></li>
