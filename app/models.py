@@ -18,13 +18,13 @@ class Address(db.Model):
     line1 = db.Column(db.String(60), index=True,nullable=True)
     line2 = db.Column(db.String(60), nullable=True)
     city =db.Column(db.String(60), nullable=True)
-    country =db.Column(db.String(60), nullable=True)
+    state =db.Column(db.String(60), nullable=True)
     postal_code=db.Column(db.String(60))
 class Company(db.Model):
     __tablename__='company'
     id = db.Column(db.Integer, primary_key=True)
     companyName = db.Column(db.String(64), nullable=True)
-    Website = db.Column(db.String(64), nullable=True)
+    website = db.Column(db.String(64), nullable=True)
     description=db.Column(db.String(128), nullable=True)
     country = db.Column(db.String(64), nullable=True, unique=False)
 
@@ -81,7 +81,7 @@ class Employee(UserMixin,db.Model):
     worksOn=db.relationship('Order',secondary=Working_on,back_populates="engs") # contains orders an engineer is working on
     validate = db.relationship('Order', foreign_keys=[validate_id]) # contains orders validates by an admin
     address=db.relationship('Address', foreign_keys=[address_id]) #contain user adress
-    address = db.relationship('Company', foreign_keys=[company_id])
+    company = db.relationship('Company', foreign_keys=[company_id])
     def generate_confirmation_token(self,expiration=3600):
         s=Serializer("YouCantSeeMee.123",expiration)
         return s.dumps({'confirm':self.id})

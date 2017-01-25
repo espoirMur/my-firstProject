@@ -4,6 +4,9 @@
 {% block body %}
 <hr>
 <div class="container">
+    <br/>
+    {{ utils.flashed_messages() }}
+    <br/>
     <div class="row">
         <div class="col-sm-10"><h1>My Dashboard</h1></div>
         <div class="col-sm-2"><a href="" class="pull-right"><img title="profile image" class="img-circle img-responsive"
@@ -25,8 +28,16 @@
                 </li>
             </ul>
             <div class="panel panel-default">
-                <div class="panel-heading">Company Web site <i class="fa fa-link fa-1x"></i></div>
-                <div class="panel-body"><a href="">company name</a></div>
+                <div class="panel-heading">Company Web site
+                    {% if employee.company %}
+                    <i class="fa fa-link fa-1x"></i></div>
+                <div class="panel-body"><a href="http://{{employee.company.website}}" ,external=True>
+                    {{employee.company.companyName}}</a>
+                </div>
+                {% else %}
+                {% endif %}
+
+
             </div>
             <ul class="list-group">
                 <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
@@ -137,82 +148,86 @@
                                 </div>
                                 <div class="bio-row">
                                     <p><span>Email </span>:{{
-                                        employee.email }}<span class="links"><a href="{{ url_for('auth.change_email_request') }}"><span
+                                        employee.email }}<span class="links"><a
+                                                href="{{ url_for('auth.change_email_request') }}"><span
                                                 class="icon" aria-hidden="true"></span><span
                                                 class="text">Edit</span></a></span></p>
                                 </div>
                                 <div class="bio-row">
                                     <p><span>Company Name : </span>
                                         {% if employee.company %}
-                                        {{employee.company.name}} <span class="links"><a href=""><span
+                                        {{employee.company.companyName}} <span class="links"><a href="{{  url_for('client.editCompany' ,id = employee.id ) }}"><span
                                                 class="icon" aria-hidden="true"></span><span
                                                 class="text">Edit</span></a></span></p>
-                                        {% else %}
-                                        <span class="links"><a href=""><span
-                                                class="icon" aria-hidden="true"></span><span
-                                                class="text">Add</span></a></span></p>
-                                        {% endif %}
+                                    {% else %}
+                                    <span class="links"><a
+                                            href="{{  url_for('client.addInfo' ,id = employee.id ) }}"><span
+                                            class="icon" aria-hidden="true"></span><span
+                                            class="text">Add</span></a></span></p>
+                                    {% endif %}
                                 </div>
                                 <div class="bio-row">
                                     <p><span>Company Website : </span>
-                                     {% if employee.company %}
+                                        {% if employee.company %}
                                         {{employee.company.website}} <span class="links"><a href=""><span
                                                 class="icon" aria-hidden="true"></span><span
                                                 class="text">Edit</span></a></span></p>
-                                        {% else %}
-                                        <span class="links"><a href=""><span
-                                                class="icon" aria-hidden="true"></span><span
-                                                class="text">Add</span></a></span></p>
-                                        {% endif %}
+                                    {% else %}
+                                    <span class="links"><a href=""><span
+                                            class="icon" aria-hidden="true"></span><span
+                                            class="text">Add</span></a></span></p>
+                                    {% endif %}
                                 </div>
                                 <div class="bio-row">
                                     <p><span>Company Description: </span>
-                                     {% if employee.company %}
-                                        {{employee.company.description}} <span class="links"><a href=""><span
+                                        {% if employee.company %}
+                                        {{employee.company.description}} <span class="links"><a href="{{  url_for('client.editCompany' ,id = employee.id ) }}"><span
                                                 class="icon" aria-hidden="true"></span><span
                                                 class="text">Edit</span></a></span></p>
-                                        {% else %}
-                                        <span class="links"><a href=""><span
-                                                class="icon" aria-hidden="true"></span><span
-                                                class="text">Add</span></a></span></p>
-                                        {% endif %}
+                                    {% else %}
+                                    <span class="links"><a href=""><span
+                                            class="icon" aria-hidden="true"></span><span
+                                            class="text">Add</span></a></span></p>
+                                    {% endif %}
                                 </div>
                                 <div class="bio-row">
                                     <p><span>Phone Number : </span>
                                         {% if employee.phone %}
-                                        {{employee.phone}} <span class="links"><a href=""><span
+                                        {{employee.phone}} <span class="links"><a href=#><span
                                                 class="icon" aria-hidden="true"></span><span
                                                 class="text">Edit</span></a></span></p>
-                                        {% else %}
-                                        <span class="links"><a href=""><span
-                                                class="icon" aria-hidden="true"></span><span
-                                                class="text">Add</span></a></span></p>
-                                        {% endif %}
+                                    {% else %}
+                                    <span class="links"><a href=""><span
+                                            class="icon" aria-hidden="true"></span><span
+                                            class="text">Add</span></a></span></p>
+                                    {% endif %}
                                 </div>
                                 <div class="bio-row">
                                     <p><span>Country : </span>
-                                      {% if employee.company %}
-                                        {{employee.company.country}} <span class="links"><a href=""><span
+                                        {% if employee.company %}
+                                        {{employee.company.country}} <span class="links"><a href="{{  url_for('client.editCompany' ,id = employee.id ) }}"><span
                                                 class="icon" aria-hidden="true"></span><span
                                                 class="text">Edit</span></a></span></p>
-                                        {% else %}
-                                        <span class="links"><a href=""><span
-                                                class="icon" aria-hidden="true"></span><span
-                                                class="text">Add</span></a></span></p>
-                                        {% endif %}
+                                    {% else %}
+                                    <span class="links"><a href=""><span
+                                            class="icon" aria-hidden="true"></span><span
+                                            class="text">Add</span></a></span></p>
+                                    {% endif %}
                                 </div>
 
                                 <div class="bio-row">
                                     <p><span>Adress : </span>
-                                    {% if employee.address %}
-                                        {{employee.address.line1 }}  {{employee.address.line2 }}  {{employee.address.city}} {{employee.address.country }} {{employee.address.postal_code }}<span class="links"><a href=""><span
+                                        {% if employee.address %}
+                                        {{employee.address.line1 }} {{employee.address.line2 }}
+                                        {{employee.address.city}} {{employee.address.state }}
+                                        {{employee.address.postal_code }}<span class="links"><a href="{{  url_for('client.editAdrees' ,id = employee.id ) }}"><span
                                                 class="icon" aria-hidden="true"></span><span
                                                 class="text">Edit</span></a></span></p>
-                                        {% else %}
-                                        <span class="links"><a href=""><span
-                                                class="icon" aria-hidden="true"></span><span
-                                                class="text">Add</span></a></span></p>
-                                        {% endif %}
+                                    {% else %}
+                                    <span class="links"><a href=""><span
+                                            class="icon" aria-hidden="true"></span><span
+                                            class="text">Add</span></a></span></p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

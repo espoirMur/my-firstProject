@@ -1,4 +1,4 @@
-from flask import flash, redirect, render_template, url_for, request
+from flask import flash, redirect, render_template, url_for, request,session
 from flask_login import login_required, login_user, logout_user, current_user
 from . import auth
 from .froms import LoginForm, RegistrationForm,ChangeEmailForm,ResetPasswordForm,ResetPasswordFormRequest
@@ -100,6 +100,7 @@ def confirme(token):
 def before_request():
     #ceci se passe avant toutes les requete une fois l'utilisateurt connecte et verifie si l'utilisateur est authentique
     if current_user.is_authenticated and not current_user.confirmed and request.endpoint[:5] != 'auth.':
+        session.clear()
         return redirect(url_for('auth.unconfirmed'))
 
 @auth.route('/unconfirmed')

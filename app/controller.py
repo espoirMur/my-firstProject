@@ -4,7 +4,7 @@ from . import mail
 from app import app_config
 from rauth.service import OAuth2Service,OAuth1Service
 #from .. import smtpserver
-import requests
+import requests,json
 
 from email.mime.text import MIMEText
 def send_mail_flask(to,subject,template,**kwargs):
@@ -23,6 +23,16 @@ def send_simple_message():
               "to": ["devs@mailgun.net"],
               "subject": "Hello",
               "text": "Testing some Mailgun awesomeness!"})
+
+def send_smsbyMblox():
+    headers={"Authorization": "Bearer {898d66d1576d46b4aa7f1353bfd23e7e}",
+             "Content-Type": "application/json"}
+    body={"from":"Mblox",
+          "to":["+243993505357"],
+          "body":"Hi this is my first message using Mbs SMS REST API"}
+    url = "https://api.clxcommunications.com/xms/v1/macabesear12/"
+    return requests.post(url=url,headers=headers,body=json(body)
+    )
 #sending mail from python direcly with gmail
 """def send_mail(you):
     #in app this doesn't work i don't know why you must put real username and password be able to send mail

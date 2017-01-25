@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %} {{ title}}{% endblock %}
+{% block title %} {{ title }} {% endblock %}
 
 {% block body %}
    <div class="content-section">
@@ -10,11 +10,11 @@
         {{ utils.flashed_messages() }}
         <br/>
         <div class="center">
-            <h4 style="text-align: center">Add Infos</h4>
+            <h4 style="text-align: center"> {{ title }}  </h4>
             <br/>
              <div id="formContainer">
-            {{ wtf.quick_form(form) }}
-                 </div>
+             {{ wtf.quick_form(form) }}
+             </div>
              </div>
             <!--a  class="need-help" href=">Forgot password? </a-->
         </div>
