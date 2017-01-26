@@ -16,6 +16,7 @@ def create_app(config_name):
     #application factory
         if os.getenv('FLASK_CONFIG') == "production":
             app = Flask(__name__)
+            app.config.from_object(app_config[config_name])
             app.config.update(
                 SECRET_KEY=os.getenv('SECRET_KEY'),
                 SQLALCHEMY_DATABASE_URI=os.getenv('SQLALCHEMY_DATABASE_URI')

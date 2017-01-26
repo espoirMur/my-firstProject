@@ -7,8 +7,10 @@ from ..models import Employee
 from flask_sqlalchemy import get_debug_queries
 from app import app_config
 import os
-import app
+import app,logging
 from datetime import date
+import logging
+
 
 from ..controller import send_mail_flask,AuthSignIn
 
@@ -31,9 +33,11 @@ def register():
             flash("Registration sucessfull a confirmation mail has been send to your account")
             login_user(employee,True)
             return redirect(url_for('auth.unconfirmed'))
-        except Exception:
+        except Exception as e:
             db.session.delete(employee)
             db.session.commit()
+            logging.exception(Exception)
+            #flash(str(e),category="error")
             flash("Error While sending Confirmation mail Try again",category='error')
             return redirect(url_for('auth.register'))
             # redirect to loggin page
