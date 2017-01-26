@@ -10,28 +10,27 @@ class Config(object):
     FLASKY_MAIL_SUBJECT_PREFIX = 'Welcome'
     FLASKY_MAIL_SENDER = 'espoir.mur@gmail.com'
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
-    ''''global config "'''
-
-class DevellopementConfig(Config):
-    DEBUG = True
-    SQLALCHEMY_ECHO = True
     OAUTH_CREDENTIALS = {
         'facebook': {
             'id': os.environ.get('FACEBOOK_ID'),
             'secret': os.environ.get('FACEBOOK_SECRET')
 
         },
-        'twitter':{
-          'id':os.environ.get('TWITTER_ID'),
-           'secret':os.environ.get('TWITTER_SECRET')
+        'twitter': {
+            'id': os.environ.get('TWITTER_ID'),
+            'secret': os.environ.get('TWITTER_SECRET')
         },
-        'google':{
+        'google': {
             'id': os.environ.get('GOOGLE_ID'),
             'secret': os.environ.get('GOOGLE_SECRET')
 
         }
 
     }
+    ''''global config "'''
+class DevellopementConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_ECHO = True
     #config for production
 class ProductionConfig(Config):
     DEBUG = False
