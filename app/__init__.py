@@ -14,8 +14,6 @@ smtpserver.ehlo()
 smtpserver.starttls()"""
 def create_app(config_name):
     #application factory
-
-    def create_app(config_name):
         if os.getenv('FLASK_CONFIG') == "production":
             app = Flask(__name__)
             app.config.update(
@@ -26,6 +24,7 @@ def create_app(config_name):
             app = Flask(__name__, instance_relative_config=True)
             app.config.from_object(app_config[config_name])
             app.config.from_pyfile('config.py')
+
         db.init_app(app)
         mail.init_app(app)  # Pour l'envoi des mails
         log_manager.init_app(app)
