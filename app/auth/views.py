@@ -202,12 +202,3 @@ def oauth_callback(provider):
     flash("Authentification succefull")
     return redirect(url_for('home.homepage'))
 
-""""@auth.after_app_request
-def after_request(response):
-    for query in get_debug_queries():
-        if query.duration >= app_config.get("development").FLASKY_DB_QUERY_TIMEOUT:
-             app.logger.warning(
-               '  Slow query: % s\nParameters: % s\nDuration: % fs\nContext: % s\n' %
-             (query.statement, query.parameters, query.duration,query.context
-             ))
-    return response"""

@@ -32,9 +32,9 @@ def create_app(config_name):
     from .home import home as home_blueprint
     app.register_blueprint(home_blueprint)
     from .client import client as client_blueprint
-    app.register_blueprint(client_blueprint)
+    app.register_blueprint(client_blueprint,url_prefix='/client')
     from .engineer import eng as eng_blueprint
-    app.register_blueprint(eng_blueprint)
+    app.register_blueprint(eng_blueprint,url_prefix='/eng')
     #for error handling
     @app.errorhandler(403)
     def forbidden(error):
@@ -48,7 +48,6 @@ def create_app(config_name):
     def internal_server_error(error):
         return render_template('errors/500.html', title='Server Error'), 500
     return app
-
 
 
 

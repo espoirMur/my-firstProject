@@ -53,6 +53,16 @@ class ProductionConfig(Config):
             subject=cls.FLASKY_MAIL_SUBJECT_PREFIX + ' Application error',
             credentials=credentials,secure=secure
         )
+        from logging import Formatter
+        mail_handler.setFormatter(Formatter('''
+               Message type:       %(levelname)s
+               Location:           %(pathname)s:%(lineno)d
+               Module:             %(module)s
+               Function:           %(funcName)s
+               Time:               %(asctime)s
+
+               Message:  %(message)s
+               '''))
         mail_handler.setLevel(logging.ERROR)
         app.logger.addHandler(mail_handler)
 
