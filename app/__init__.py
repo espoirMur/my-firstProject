@@ -41,9 +41,9 @@ def create_app(config_name):
         from .home import home as home_blueprint
         app.register_blueprint(home_blueprint)
         from .client import client as client_blueprint
-        app.register_blueprint(client_blueprint, url_prefix='/client')
+        app.register_blueprint(client_blueprint)
         from .engineer import eng as eng_blueprint
-        app.register_blueprint(eng_blueprint, url_prefix='/eng')
+        app.register_blueprint(eng_blueprint)
 
         # for error handling
         @app.errorhandler(403)

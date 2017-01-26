@@ -71,7 +71,7 @@ class Employee(UserMixin,db.Model):
     is_eng = db.Column(db.Boolean, default=False)
     confirmed = db.Column(db.Boolean, default=False)
     social_id=db.Column(db.String(64),nullable=True,unique=True)
-    phone = db.Column(db.String(64), nullable=True, unique=True)
+    phone = db.Column(db.String(64), nullable=True, unique=False)
     registration_date=db.Column(db.Date,nullable=False,default=date.today())
     company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
     address_id=db.Column(db.Integer, db.ForeignKey('address.id'))
