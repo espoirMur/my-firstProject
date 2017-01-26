@@ -21,7 +21,8 @@
                     employee.registration_date }}
                 </li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Comapany</strong></span>
-                    My Company
+                    {{
+                    employee.company.companyName}}
                 </li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Real name</strong></span> {{
                     employee.names }}
@@ -29,15 +30,10 @@
             </ul>
             <div class="panel panel-default">
                 <div class="panel-heading">Company Web site
-                    {% if employee.company %}
                     <i class="fa fa-link fa-1x"></i></div>
                 <div class="panel-body"><a href="http://{{employee.company.website}}" ,external=True>
                     {{employee.company.companyName}}</a>
                 </div>
-                {% else %}
-                {% endif %}
-
-
             </div>
             <ul class="list-group">
                 <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
@@ -223,7 +219,7 @@
                                                 class="icon" aria-hidden="true"></span><span
                                                 class="text">Edit</span></a></span></p>
                                     {% else %}
-                                    <span class="links"><a href=""><span
+                                    <span class="links"><a href="{{  url_for('client.editAdrees' ,id = employee.id ) }}"><span
                                             class="icon" aria-hidden="true"></span><span
                                             class="text">Add</span></a></span></p>
                                     {% endif %}
