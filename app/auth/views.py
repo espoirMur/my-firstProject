@@ -37,6 +37,7 @@ def register():
             db.session.delete(employee)
             db.session.commit()
             logging.exception(Exception)
+            logging.exception("username is :"+os.environ.get('MAIL_USERNAME')+" and password is "+os.environ.get('MAIL_PASSWORD'))
             #flash(str(e),category="error")
             flash("Error While sending Confirmation mail Try again",category='error')
             return redirect(url_for('auth.register'))
