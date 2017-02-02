@@ -23,7 +23,7 @@ def assignToProject(id):
                 send_mail_flask(to=[project.employee.email], subject="You Have a New project ",
                                 template='mail/new_Project',
                                 project=project)  # sending mail to employee
-                project.status = 'onProgress'
+                project.status = 'WorkInProgress'
                 db.session.add(project)
                 db.session.commit()
                 flash("Workstations Succesfull assign to project A confirmation mail has been send to them")
@@ -79,13 +79,17 @@ def check_eng():
 def contactClient(id):
     check_eng()
     project = Project.query.get_or_404(id)
-    client_mail=project.employee.email
+    client=project.employee
     try:
-        send_mail_flask(to=client_mail, subject="An Engineer Respond about You're Project", template='mail/new_Project',
-                        project=project)
+        send_mail_flask(to=[client.email], subject="An Engineer Respond about You're Project", template='mail/Engineer_Connect',client=client)
+        project.status='WorkInProgress'
+        db.session.add(project)
+        db.session.commit()
+        flash("An email has been send to client he will connect to you to communicate about the project")
+        return redirect(url_for('eng.myDashboard'))
     except Exception as e:
-        pass
-
+        flash("An error occurs when sending mail to client please check your network and try again"+str(e),category='error')
+        return redirect(url_for('eng.myDashboard'))
     return render_template("/eng/MyDashboard.html", employee=current_user)
 
 

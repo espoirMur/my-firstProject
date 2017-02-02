@@ -11,7 +11,7 @@ admin = Admin(name='Admin Dashboard', template_mode='bootstrap3', index_view=Adm
 # for handling administratives task of our application
 project_view = ProjectsViews("Pending Projects")
 admin.add_views(EmployeeModelView(WorkStation, db.session))
-admin.add_views(RevitColabToolModelView(Project, db.session))
+admin.add_views(ProjectModelView(Project, db.session))
 admin.add_views(project_view)
 adminblue = project_view.create_blueprint(admin)
 

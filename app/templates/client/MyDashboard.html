@@ -89,9 +89,9 @@
                                     {%endif%}
                                 </td>
                                 <td>
-                                    {% if project.status!='onProgress'%}
+                                    {% if project.workStation ==None %}
                                     No WorkStationYet
-                                    {%elif project.workStation!=None %}
+                                    {%elif project.status=='WorkInProgress' %}
                                     {{ project.workStation.name}} <a
                                         href="{{ url_for('client.runInstance' ,id=project.workStation.id,_external=True) }}">
                                     Run

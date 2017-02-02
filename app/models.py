@@ -61,7 +61,7 @@ class WorkStation(db.Model):
     Disk=db.Column(db.Integer)
     projects = db.relationship('Project', back_populates='workStation')
     def __repr__(self):
-        return '<Workstattion: {}>'.format(self.name)
+        return '{}'.format(self.name)
 
 class Employee(UserMixin,db.Model):
     __tablename__='employee'
@@ -152,7 +152,7 @@ class Employee(UserMixin,db.Model):
 
 
     def __repr__(self):
-        return '<Employee: {}>'.format(self.username)
+        return '{}'.format(self.username)
     def validateOder(self):
         #for admin
         pass

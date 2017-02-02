@@ -4,9 +4,10 @@ import flask_login as login
 from flask_admin.contrib.sqla import ModelView
 from flask_admin import BaseView, expose, AdminIndexView
 from ..models import Project
+from flask_admin._backwards import ObsoleteAttr
 
 
-class RevitColabToolModelView(ModelView):
+class ProjectModelView(ModelView):
     can_delete = True  # disable model deletion
     page_size = 50  # the number of entries to display on the list view
     column_exclude_list = ['Password Hash']
@@ -18,17 +19,14 @@ class RevitColabToolModelView(ModelView):
 class EmployeeModelView(ModelView):
     can_create = True
     can_edit = True
-    can_delete = True
+    can_delete = False
     page_size = 20
-    column_list = ['names', ' registration_date', 'phone', 'company.name']
-
     def is_accessible(self):
         return login.current_user.is_admin
 
 
 class ProjectsViews(BaseView):
     title = 'Project'
-
     @expose('/')
     def index(self):
         projects = Project.query.filter_by(status='pending')
