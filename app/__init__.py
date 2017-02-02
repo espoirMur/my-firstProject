@@ -1,7 +1,7 @@
-from flask import Flask,render_template
+from flask import Flask, render_template, redirect, abort
 from flask_sqlalchemy import SQLAlchemy
 from  config import app_config
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from flask_mail import Mail
@@ -9,6 +9,7 @@ import smtplib,os
 db = SQLAlchemy() #initialisation de la BD
 log_manager =LoginManager()
 mail = Mail()
+
 """smtpserver = smtplib.SMTP(app_config.get('development').MAIL_SERVER, app_config.get('development').MAIL_PORT)
 smtpserver.ehlo()
 smtpserver.starttls()"""
@@ -26,6 +27,8 @@ def create_app(config_name):
             app.config.from_object(app_config[config_name])
             app.config.from_pyfile('config.py')
 
+    from .admin import admin
+    admin.init_app(app)
         db.init_app(app)
         mail.init_app(app)  # Pour l'envoi des mails
         log_manager.init_app(app)
@@ -34,8 +37,6 @@ def create_app(config_name):
         migrate = Migrate(app, db)  # Migrate object to databases
         Bootstrap(app)
         from app import models
-        from .admin import admin as admin_blueprint
-        app.register_blueprint(admin_blueprint, url_prefix='/admin')
         from .auth import auth as auth_blueprint
         app.register_blueprint(auth_blueprint)
         from .home import home as home_blueprint
@@ -57,6 +58,14 @@ def create_app(config_name):
         @app.errorhandler(500)
         def internal_server_error(error):
             return render_template('errors/500.html', title='Server Error'), 500
+
+    @app.route('/admin')
+    def adminPage():
+        if not current_user.is_admin:
+            abort(403)
+        else:
+            redirect('/admin')
+        return redirect('/admin')
 
         return app
 

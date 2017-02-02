@@ -8,7 +8,7 @@ from datetime import date
 Working_on =db.Table(
     'Working_on',
     db.Column('Eng_id',db.Integer,db.ForeignKey('employee.id')),
-    db.Column('Order_id',db.Integer,db.ForeignKey('order.id')),
+    db.Column('Project_id', db.Integer, db.ForeignKey('project.id')),
     db.Column('Start_Date',db.Date),
     db.Column('End_Date',db.Date)
 )
@@ -29,15 +29,18 @@ class Company(db.Model):
     country = db.Column(db.String(64), nullable=True, unique=False)
 
 
-class Order(db.Model):
-    _tablename__ = 'order'
+class Project(db.Model):
+    _tablename__ = 'project'
     id = db.Column(db.Integer, primary_key=True)
-    status= db.Column(db.Boolean, default=False)
-    description = db.Column(db.String(200))
-    Date=db.Column(db.Date)
-    Requirement=db.Column(db.String(64))
+    status = db.Column(db.Enum('pending', 'onProgress', 'WorkInProgress', 'completed'), nullable=False)
+    type = db.Column(db.Enum('frame instance only', 'frame instance and engineer'), nullable=False)
+    date = db.Column(db.Date)
+    numberOfEngs = db.Column(db.Integer)
     workStation_id=db.Column(db.Integer,db.ForeignKey('workStation.id'))
+    employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'))  # if clients will save oders placed
+    employee = db.relationship('Employee', back_populates="projects", foreign_keys=[employee_id])
     engs=db.relationship("Employee",secondary=Working_on,back_populates="worksOn")
+    workStation = db.relationship('WorkStation', back_populates='projects')
     def validate(self):
         pass
     def change(self):
@@ -45,7 +48,7 @@ class Order(db.Model):
     def delete(self):
         pass
     def __repr__(self):
-        return '<Department: {}>'.format(self.name)
+        return '<Project: {}>'.format(self.id)
 
 class WorkStation(db.Model):
     __tablename__='workStation'
@@ -56,9 +59,9 @@ class WorkStation(db.Model):
     GPU=db.Column(db.Integer)
     RAM=db.Column(db.Integer)
     Disk=db.Column(db.Integer)
-    orders = db.relationship('Order', backref='workStation', lazy='dynamic')
+    projects = db.relationship('Project', back_populates='workStation')
     def __repr__(self):
-        return '<Role: {}>'.format(self.name)
+        return '<Workstattion: {}>'.format(self.name)
 
 class Employee(UserMixin,db.Model):
     __tablename__='employee'
@@ -75,11 +78,11 @@ class Employee(UserMixin,db.Model):
     registration_date=db.Column(db.Date,nullable=False,default=date.today())
     company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
     address_id=db.Column(db.Integer, db.ForeignKey('address.id'))
-    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))  # if clients will save oders placed
-    validate_id = db.Column(db.Integer, db.ForeignKey('order.id')) #if admin will save orders validate by him
-    orders = db.relationship('Order',foreign_keys=[order_id])#contatins orders placed for clients
-    worksOn=db.relationship('Order',secondary=Working_on,back_populates="engs") # contains orders an engineer is working on
-    validate = db.relationship('Order', foreign_keys=[validate_id]) # contains orders validates by an admin
+    validate_id = db.Column(db.Integer, db.ForeignKey('project.id'))  # if admin will save projects validate by him
+    projects = db.relationship('Project', foreign_keys=[Project.employee_id], )  # contatins projects placed for clients
+    worksOn = db.relationship('Project', secondary=Working_on,
+                              back_populates="engs")  # contains projects an engineer is working on
+    validate = db.relationship('Project', foreign_keys=[validate_id])  # contains projects validates by an admin
     address=db.relationship('Address', foreign_keys=[address_id]) #contain user adress
     company = db.relationship('Company', foreign_keys=[company_id])
     def generate_confirmation_token(self,expiration=3600):

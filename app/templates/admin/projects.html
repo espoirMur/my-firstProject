@@ -1,0 +1,59 @@
+{% extends 'admin/master.html' %}
+{% block title %}Projects{% endblock %}
+{% block body %}
+<div class="content-section">
+    <div class="outer">
+        <div class="middle">
+            <div class="inner">
+                <h1 style="text-align:center;">Projects</h1>
+                <hr class="intro-divider">
+                <div class="center">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th width="15%"> Client Name</th>
+                            <th width="15%"> Project Type</th>
+                            <th width="15%"> Engineers</th>
+                            <th width="15%"> WorkSations</th>
+                            <th width="15%"> Engineers</th>
+                            <th width="35%"> Action</th>
+                        </tr>
+                        </thead>
+                        {% for project in projects %}
+                        <tbody>
+                        <tr>
+                            <td> {{ project.employee.names }}</td>
+                            <td> {{ project.type }}</td>
+                            <td> {{ project.numberOfEngs }}</td>
+                            <td> {{ project.numberOfWorkStations }}</td>
+                            <td>
+                                {% for eng in project.engs %}
+                                {{ eng.names}}
+                                <br/>
+                                {% endfor %}
+                            </td>
+                            <td>{%if project.type=="frame instance and engineer" and project.engs.count(self) <
+                                project.numberOfEngs%}
+                                <a href="{{ url_for('eng.assignToProject', id=project.id) }}">
+                                    <i class="fa fa-user-plus"></i> Assign Engineers and WorkStations
+                                </a>
+                                {%else%}
+                                <a href="{{ url_for('eng.assignToProject', id=project.id) }}">
+                                    <i class="fa fa-user-plus"></i> Assign WorksStations
+                                </a>
+                                {%endif %}
+                            </td>
+
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+

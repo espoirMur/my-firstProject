@@ -3,7 +3,7 @@ from flask_login import login_required, login_user, logout_user, current_user
 from . import auth
 from .froms import LoginForm, RegistrationForm,ChangeEmailForm,ResetPasswordForm,ResetPasswordFormRequest
 from .. import db
-from ..models import Employee
+from ..models import Employee, Project
 from flask_sqlalchemy import get_debug_queries
 from app import app_config
 import os
@@ -19,25 +19,35 @@ from ..controller import send_mail_flask,AuthSignIn
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
+    if request.method == 'GET':
+        form.project.data.get('numberOfEngs') == 0
     if form.validate_on_submit():
         employee = Employee(names=form.names.data,
                             username=form.username.data,
                             email=form.email.data,
                             password=form.password.data,
                             registration_date=date.today())
-        try :
-            db.session.add(employee)
-            db.session.commit()
+        project = Project(type=form.project.data.get('type'),
+                          numberOfEngs=form.project.data.get('numberOfEngs'),
+                          status='pending',
+                          date=date.today())
+        db.session.add(employee)
+        db.session.add(project)
+        employee.projects.append(project)
+        db.session.commit()
+        try:
             token = employee.generate_confirmation_token()
-            send_mail_flask(employee.email, 'Confirm Your Account', 'mail/new_user', employee=employee, token=token)
+            send_mail_flask([employee.email], 'Confirm Your Account', 'mail/new_user', employee=employee, token=token)
             flash("Registration sucessfull a confirmation mail has been send to your account")
             login_user(employee,True)
             return redirect(url_for('auth.unconfirmed'))
         except Exception as e:
+            logging.exception(Exception)
+            print str(e)
             db.session.delete(employee)
             db.session.commit()
-            logging.exception(Exception)
-            logging.exception("username is :"+os.environ.get('MAIL_USERNAME')+" and password is "+os.environ.get('MAIL_PASSWORD'))
+            # logging.exception(Exception)
+            # logging.exception("username is :"+os.environ.get('MAIL_USERNAME')+" and password is "+os.environ.get('MAIL_PASSWORD'))
             #flash(str(e),category="error")
             flash("Error While sending Confirmation mail Try again",category='error')
             return redirect(url_for('auth.register'))
@@ -65,6 +75,8 @@ def login():
             # redirect to the appropriate page according to this role
             if employee.is_admin:
                 return redirect(url_for('home.admin_dashboard'))
+            elif employee.is_eng:
+                return redirect(url_for('eng.myDashboard'))
             else:
                 return redirect(url_for('client.myDashboard'))
         # when login details are incorrect

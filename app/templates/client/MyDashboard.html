@@ -47,7 +47,7 @@
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Completed</strong></span> 0</li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong>In Progress</strong></span> 0
                 </li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Pendinf</strong></span> 0</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Pending</strong></span> 0</li>
             </ul>
         </div><!--/col-3-->
         <div class="col-sm-9">
@@ -59,68 +59,76 @@
 
             <div class="tab-content">
                 <div class="tab-pane" id="home">
-                    {% if departments %}
+                    {% if employee.projects %}
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th width="15%"> Project Name</th>
-                                <th width="40%"> Task Engineers</th>
-                                <th width="15%"> My Enginerr</th>
+                                <th width="15%"> Type</th>
+                                <th width="23%"> My Engineers</th>
+                                <th width="22%"> My Instances</th>
                                 <th width="15%"> Status</th>
-                                <th width="15%"> Delete</th>
+                                <th width="15%"> Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for department in departments %}
+                            {% for project in employee.projects %}
                             <tr>
-                                <td> {{ department.name }}</td>
-                                <td> {{ department.description }}</td>
+                                <td> {{ project.type}}</td>
                                 <td>
-                                    {% if department.employees %}
-                                    {{ department.employees.count() }}
-                                    {% else %}
-                                    0
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <a href="{{ url_for('admin.edit_departement', id=department.id) }}">
-                                        <i class="fa fa-pencil"></i> Edit
+                                    {% if project.status!='pending'%}
+                                    {% for eng in project.engs %}
+                                    {{ eng.names}}
+                                    <a href="{{ url_for('client.contactEngi' ,id=eng.id) }}">
+                                        Contact
                                     </a>
+                                    <br/>
+                                    {% endfor %}
+                                    {% elif project.status=='pending'%}
+                                    {{ project.numberOfEngs}}
+                                    {%endif%}
                                 </td>
                                 <td>
-                                    <a href="{{ url_for('admin.delete_departement', id=department.id) }}">
-                                        <i class="fa fa-trash"></i> Delete
+                                    {% if project.status!='onProgress'%}
+                                    No WorkStationYet
+                                    {%elif project.workStation!=None %}
+                                    {{ project.workStation.name}} <a
+                                        href="{{ url_for('client.runInstance' ,id=project.workStation.id,_external=True) }}">
+                                    Run
                                     </a>
+                                    {%endif%}
                                 </td>
+                                <td> {{ project.status}}</td>
+
+                                <td>
+                                    {% if project.status=='pending'%}
+                                    <a href="">
+                                        <i class="fa fa-pencil"></i> Delete
+                                    </a>
+                                    {%else%}
+                                    <a href="">
+                                        <i class="fa fa-pencil"></i> Mark Completed
+                                    </a>
+                                    {%endif%}
+
+                                </td>
+
                             </tr>
                             {% endfor %}
                             </tbody>
                         </table>
                         <hr>
-                        <div class="row">
-                            <div class="col-md-4 col-md-offset-4 text-center">
-                                <ul class="pagination" id="myPager">
-                                    <li><a href="#" class="prev_link">«</a></li>
-                                    <li class="active"><a href="#" class="page_link active">1</a></li>
-                                    <li><a href="#" class="page_link">2</a></li>
-                                    <li><a href="#" class="next_link">»</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div><!--/table-resp-->
+                    </div>
                     {% else %}
-                    <div style="text-align: center">
-                        <h3> You Haven't Make Any Order Yet </h3>
+                    <h3 class="center"> You Haven't Make Any Project Yet </h3>
                         <hr class="intro-divider">
                         {% endif %}
-                        <a href="{{ url_for('client.makeOrder') }}" class="btn btn-default btn-lg">
+                    <a href="{{ url_for('client.makeProject') }}" class="btn btn-default btn-lg">
                             <i class="fa fa-plus"></i>
-                            Make an Order
+                        New Project
                         </a>
-                    </div>
                     <hr>
-                </div><!--/tab-pane-->
+                </div>
                 <div class="tab-pane" id="messages"><h2></h2>
                     <ul class="list-group">
                         <li class="list-group-item text-muted">Recent Activity</li>
@@ -129,7 +137,7 @@
                         </li>
 
                     </ul>
-                </div><!--/tab-pane-->
+                </div>
                 <div class="tab-pane active" id="settings">
                     <section class="panel">
                         <div class="panel-body bio-graph-info">

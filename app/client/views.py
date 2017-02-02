@@ -2,8 +2,9 @@ from .. import db
 from flask import flash, redirect, render_template, url_for, request
 from flask_login import login_required, login_user, logout_user, current_user
 from . import client
-from .froms import AccountInfoFrom,EditAdress,EditComapny
-from ..models import Company,Employee,Address
+from .froms import AccountInfoFrom, EditAdress, EditComapny, ProjectInfo
+from ..models import Company, Employee, Address, Project, WorkStation
+from datetime import date
 @client.route("/client/AccountInfo")
 @login_required
 def viewInfo():
@@ -12,10 +13,26 @@ def viewInfo():
 @login_required
 def myDashboard():
     return render_template("/client/MyDashboard.html",employee=current_user)
-@client.route("/client/makeOrder")
+
+
+@client.route("/client/makeProject", methods=['GET', 'POST'])
 @login_required
-def makeOrder():
-    return render_template("/client/MyDashboard.html",employee=current_user)
+def makeProject():
+    form = ProjectInfo()
+    if request.method == 'GET':
+        form.numberOfEngs.data == 0
+    if form.validate_on_submit():
+        project = Project(type=form.type.data,
+                          numberOfEngs=form.numberOfEngs.data,
+                          status='pending',
+                          date=date.today())
+        employee = current_user
+        db.session.add(project)
+        employee.projects.append(project)
+        db.session.commit()
+        flash("A New Project Has Been create you will be notifity When ENginner will be asign")
+        return redirect(url_for('client.myDashboard'))
+    return render_template("/client/NewProject.html", title='New Project', form=form)
 @login_required
 @client.route('/client/AddInfo/<int:id>',methods=['GET', 'POST'])
 def addInfo(id):
@@ -49,8 +66,6 @@ def addInfo(id):
 def editAdrees(id):
     employee= Employee.query.get_or_404(id)
     address=Address.query.get_or_404(employee.address.id)
-    print "----------Adresss-------"
-    print address.city
     form=EditAdress(obj=address)
     if request.method == 'GET':
         form.city.data=address.city
@@ -85,3 +100,17 @@ def editCompany(id):
         flash("information succefull add")
         return redirect(url_for('client.myDashboard'))
     return render_template("/client/AddInfo.html",form=form,title="Edit Information")
+
+
+@login_required
+@client.route('/client/contactEngineers/<int:id>', methods=['GET', 'POST'])
+def contactEngi(id):
+    engineer = Employee.query.filter_by(is_eng=True, id=id).first()
+    return render_template('client/contactEngineer.html', engineer=engineer)
+
+
+@login_required
+@client.route('/client/runWorkStation/<int:id>', methods=['GET', 'POST'])
+def runInstance(id):
+    workstation = WorkStation.query.get_or_404(id)
+    return render_template('client/StartFrame.html', workstation=workstation)

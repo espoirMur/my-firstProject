@@ -6,6 +6,16 @@ from wtforms.fields.html5 import TelField
 from wtforms_alchemy import PhoneNumberField
 
 
+class ProjectInfo(FlaskForm):
+    type = SelectField('Type of Service', choices=[('frame instance only', 'frame instance only'),
+                                                   ('frame instance and engineer', 'frame instance and engineer')],
+                       validators=[DataRequired()])
+    numberOfEngs = IntegerField('Number of Enginners', default=0)
+
+    def __init__(self, *args, **kwargs):
+        # We need to desactivate token evaluation
+        kwargs['csrf_enabled'] = False
+        super(ProjectInfo, self).__init__(*args, **kwargs)
 
 class PersonalInformation(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -19,8 +29,6 @@ class BuisnessInformation(FlaskForm):
     country = SelectField('Country', choices=[('Be', 'Belguim'), ('ROU', 'Roumania'), ('OTH', 'Others')])
     adress = StringField(label="Address", validators=[DataRequired()])
     Description = StringField('Buisness Description')
-
-
 class RegistrationForm(FlaskForm):
     """
     Form for users to create new account
@@ -30,6 +38,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm_password')])
     confirm_password = PasswordField('Confirm Password')
+    project = FormField(ProjectInfo)
     submit = SubmitField('Sign Up')
 
     def validate_email(self, field):
@@ -39,6 +48,7 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, field):
         if Employee.query.filter_by(username=field.data).first():
             raise ValidationError('Username is already in use.')
+
 
 class LoginForm(FlaskForm):
     """

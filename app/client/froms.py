@@ -42,3 +42,11 @@ class EditComapny(FlaskForm):
     country = SelectField('Country', choices=[('Be', 'Belguim'), ('ROU', 'Roumania'), ('OTH', 'Others')])
     description = StringField('Buisness Description')
     submit=SubmitField('Validate')
+
+
+class ProjectInfo(FlaskForm):
+    type = SelectField('Type of Service', choices=[('frame instance only', 'frame instance only'),
+                                                   ('frame instance and engineer', 'frame instance and engineer')],
+                       validators=[DataRequired()])
+    numberOfEngs = IntegerField('Number of Enginners', default=0)
+    Submit = SubmitField('Validate')

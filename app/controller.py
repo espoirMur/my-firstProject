@@ -8,7 +8,7 @@ import requests,json
 
 from email.mime.text import MIMEText
 def send_mail_flask(to,subject,template,**kwargs):
-    msg=Message(app_config.get('development').FLASKY_MAIL_SUBJECT_PREFIX + subject,sender=app_config.get('development').FLASKY_MAIL_SENDER,recipients=[to])
+    msg = Message(subject=subject, sender=app_config.get('development').FLASKY_MAIL_SENDER, recipients=to)
     msg.body=render_template(template+'.txt', **kwargs)
     msg.html=render_template(template+'.html', **kwargs)
     mail.send(msg)
@@ -127,8 +127,6 @@ class TwitterSignIn(AuthSignIn):
 
         print " key is :" +self.service.consumer_key
         print "secret is :"+self.service.consumer_secret
-        print session.items()
-        print "------------------errror---------------------------"
         request_token = self.service.get_request_token(
             params={'oauth_callback': self.get_callback_url()}
         )
@@ -182,6 +180,4 @@ class GoogleSignIn(AuthSignIn):
         )
 
         me=oauth_session.get('').json()
-        print "-----------------------------------------------"
-        print me
         return ('google$'+me['sub'],me.get('email').split('@')[0],me.get('email'),me['name'])
