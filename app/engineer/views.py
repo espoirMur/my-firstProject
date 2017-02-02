@@ -1,6 +1,6 @@
 from . import eng
 from flask_login import login_required, current_user
-from ..models import Project
+from ..models import Project,Employee,WorkStation
 from flask import render_template, redirect, flash, url_for, abort, logging
 from ..admin import ClientAssignFormWs, ClientAssignFormWSandEng
 from .. import db
@@ -45,8 +45,6 @@ def assignToProject(id):
                 eng_mail = []  # contains mail of engineers
                 for engi in engineers:
                     eng_mail.append(engi.email)
-                send_mail_flask(to=eng_mail, subject="You Have a New project ", template='mail/new_Project',
-                                project=project)
                 send_mail_flask(eng_mail, 'You Have a New project ', 'mail/new_Project',
                                 project=project)  # sending mail to employee
                 project.status = 'onProgress'
@@ -80,7 +78,14 @@ def check_eng():
 @eng.route('/eng/contactClient/<int:id>', methods=['GET', 'POST'])
 def contactClient(id):
     check_eng()
-    engineer = Employee.query.filter_by(is_eng=True, id=id).first()
+    project = Project.query.get_or_404(id)
+    client_mail=project.employee.email
+    try:
+        send_mail_flask(to=client_mail, subject="An Engineer Respond about You're Project", template='mail/new_Project',
+                        project=project)
+    except Exception as e:
+        pass
+
     return render_template("/eng/MyDashboard.html", employee=current_user)
 
 
