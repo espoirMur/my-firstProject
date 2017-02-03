@@ -22,7 +22,6 @@ Jinja2==2.8
 Mako==1.0.6
 MarkupSafe==0.23
 MySQL-python==1.2.5
-pkg-resources==0.0.0
 python-editor==1.0.3
 pytz==2016.10
 pyuca==1.1.2
