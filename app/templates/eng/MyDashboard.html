@@ -1,0 +1,227 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Departments{% endblock %}
+{% block body %}
+<hr>
+<div class="container">
+    <br/>
+    {{ utils.flashed_messages() }}
+    <br/>
+    <div class="row">
+        <div class="col-sm-10"><h1>Engineer Dashboard</h1></div>
+        <div class="col-sm-2"><a href="" class="pull-right"><img title="profile image" class="img-circle img-responsive"
+                                                                 src="User_Account_files/28fd20ccec6865e2d5f0e1f4446eb7bf.jpeg"></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"><!--left col-->
+            <ul class="list-group">
+                <li class="list-group-item text-muted">Profile</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Client Since</strong></span> {{
+                    employee.registration_date }}
+                </li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Comapany</strong></span>
+                    {{
+                    employee.company.companyName}}
+                </li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Real name</strong></span> {{
+                    employee.names }}
+                </li>
+            </ul>
+            <div class="panel panel-default">
+                <div class="panel-heading">Company Web site
+                    <i class="fa fa-link fa-1x"></i></div>
+                <div class="panel-body"><a href="http://{{employee.company.website}}" ,external=True>
+                    {{employee.company.companyName}}</a>
+                </div>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Projects</strong></span>
+                    {% if employee.worksOn %}
+                    {{ employee.worksOn.count(self) }}
+                    {% else %}
+                    0
+                    {% endif %}
+                </li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Completed</strong></span> 0</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>In Progress</strong></span> 0
+                </li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Pending</strong></span> 0</li>
+            </ul>
+        </div><!--/col-3-->
+        <div class="col-sm-9">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class=""><a href="#home" data-toggle="tab">My Projects</a></li>
+                <li class=""><a href="#messages" data-toggle="tab">Notifications</a></li>
+                <li class="active"><a href="#settings" data-toggle="tab">Settings</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="home">
+                    {% if employee.worksOn %}
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th width="15%"> Project id</th>
+                                <th width="30%"> Client </th>
+                                <th width="30%"> Status </th>
+                                <th width="30%"> Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for project in employee.worksOn%}
+                            <tr>
+                                <td> {{ project.id }}</td>
+                                <td> {{ project.employee.names}}
+                                    {%if project.status=='WorkInProgress'%}
+                                <a href="" >
+                                    contact
+                                    </a>
+                                    {%endif%}
+                                </td>
+                                <td> {{ project.status}}
+                                    {%if project.status=='WorkInProgress'%}
+                                    <a  href="{{ url_for('client.runInstance' ,id=project.workStation.id  ,_external=True) }}" >
+                                    Work on
+                                    </a>
+                                    {%endif%}
+                                </td>
+                                <td>
+                                    {% if project.status=='onProgress'%}
+                                    <a href="{{ url_for('eng.contactClient' ,id=project.id) }}">
+                                        <i class="fa fa-pencil"></i> Connect With Client
+                                    </a>
+                                    {%elif project.status=='WorkInProgress'%}
+                                     <a href="">
+                                        <i class="fa fa-pencil"></i> MarkCompleted
+                                    </a>
+                                    {%endif%}
+
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <hr>
+                    </div>
+                    {% else %}
+                        <h3 class="center"> You Haven't Been Asign to Any Project Yet </h3>
+                        <hr class="intro-divider">
+                        {% endif %}
+                    <hr>
+                </div>
+                <div class="tab-pane" id="messages"><h2></h2>
+                    <ul class="list-group">
+                        <li class="list-group-item text-muted">Recent Activity</li>
+                        <li class="list-group-item text-right"><a href="#" class="pull-left">Recent Activity about
+                            Cient</a> 2.13.2014
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="tab-pane " id="settings">
+                    <section class="panel">
+                        <div class="panel-body bio-graph-info">
+                            <h1>My Informations</h1>
+                            <div class="row">
+                                <div class="bio-row">
+                                    <p><span>Names</span>: {{
+                                        employee.names }} <span class="links"><a href=""><span
+                                                class="icon" aria-hidden="true"></span><span
+                                                class="text">Edit</span></a></span></p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Email </span>:{{
+                                        employee.email }}<span class="links"><a
+                                                href="{{ url_for('auth.change_email_request') }}"><span
+                                                class="icon" aria-hidden="true"></span><span
+                                                class="text">Edit</span></a></span></p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Company Name : </span>
+                                        {% if employee.company %}
+                                        {{employee.company.companyName}} <span class="links"><a href="{{  url_for('client.editCompany' ,id = employee.id ) }}"><span
+                                                class="icon" aria-hidden="true"></span><span
+                                                class="text">Edit</span></a></span></p>
+                                    {% else %}
+                                    <span class="links"><a
+                                            href="{{  url_for('client.addInfo' ,id = employee.id ) }}"><span
+                                            class="icon" aria-hidden="true"></span><span
+                                            class="text">Add</span></a></span></p>
+                                    {% endif %}
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Company Website : </span>
+                                        {% if employee.company %}
+                                        {{employee.company.website}} <span class="links"><a href=""><span
+                                                class="icon" aria-hidden="true"></span><span
+                                                class="text">Edit</span></a></span></p>
+                                    {% else %}
+                                    <span class="links"><a href=""><span
+                                            class="icon" aria-hidden="true"></span><span
+                                            class="text">Add</span></a></span></p>
+                                    {% endif %}
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Company Description: </span>
+                                        {% if employee.company %}
+                                        {{employee.company.description}} <span class="links"><a href="{{  url_for('client.editCompany' ,id = employee.id ) }}"><span
+                                                class="icon" aria-hidden="true"></span><span
+                                                class="text">Edit</span></a></span></p>
+                                    {% else %}
+                                    <span class="links"><a href=""><span
+                                            class="icon" aria-hidden="true"></span><span
+                                            class="text">Add</span></a></span></p>
+                                    {% endif %}
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Phone Number : </span>
+                                        {% if employee.phone %}
+                                        {{employee.phone}} <span class="links"><a href=#><span
+                                                class="icon" aria-hidden="true"></span><span
+                                                class="text">Edit</span></a></span></p>
+                                    {% else %}
+                                    <span class="links"><a href=""><span
+                                            class="icon" aria-hidden="true"></span><span
+                                            class="text">Add</span></a></span></p>
+                                    {% endif %}
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Country : </span>
+                                        {% if employee.company %}
+                                        {{employee.company.country}} <span class="links"><a href="{{  url_for('client.editCompany' ,id = employee.id ) }}"><span
+                                                class="icon" aria-hidden="true"></span><span
+                                                class="text">Edit</span></a></span></p>
+                                    {% else %}
+                                    <span class="links"><a href=""><span
+                                            class="icon" aria-hidden="true"></span><span
+                                            class="text">Add</span></a></span></p>
+                                    {% endif %}
+                                </div>
+
+                                <div class="bio-row">
+                                    <p><span>Adress : </span>
+                                        {% if employee.address %}
+                                        {{employee.address.line1 }} {{employee.address.line2 }}
+                                        {{employee.address.city}} {{employee.address.state }}
+                                        {{employee.address.postal_code }}<span class="links"><a href="{{  url_for('client.editAdrees' ,id = employee.id ) }}"><span
+                                                class="icon" aria-hidden="true"></span><span
+                                                class="text">Edit</span></a></span></p>
+                                    {% else %}
+                                    <span class="links"><a href="{{  url_for('client.editAdrees' ,id = employee.id ) }}"><span
+                                            class="icon" aria-hidden="true"></span><span
+                                            class="text">Add</span></a></span></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div><!--/tab-pane-->
+        </div><!--/tab-content-->
+    </div><!--/col-9-->
+</div><!--/row-->
+{% endblock %}
