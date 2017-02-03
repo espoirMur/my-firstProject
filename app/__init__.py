@@ -27,37 +27,46 @@ def create_app(config_name):
             app.config.from_object(app_config[config_name])
             app.config.from_pyfile('config.py')
 
-            from .admin import admin
-            admin.init_app(app)
-            db.init_app(app)
-            mail.init_app(app)  # Pour l'envoi des mails
-            log_manager.init_app(app)
-            log_manager.login_message = "You must be logged to see this page"
-            log_manager.login_view = "auth.login"  # la vue qui gere les login
-            migrate = Migrate(app, db)  # Migrate object to databases
-            Bootstrap(app)
-            from app import models
-            from .auth import auth as auth_blueprint
-            app.register_blueprint(auth_blueprint)
-            from .home import home as home_blueprint
-            app.register_blueprint(home_blueprint)
-            from .client import client as client_blueprint
-            app.register_blueprint(client_blueprint)
-            from .engineer import eng as eng_blueprint
-            app.register_blueprint(eng_blueprint)
 
-            # for error handling
-            @app.errorhandler(403)
-            def forbidden(error):
-                return render_template('errors/403.html', title='Forbidden'), 403
+        from .admin import admin
 
-            @app.errorhandler(404)
-            def page_not_found(error):
-                return render_template('errors/404.html', title='Page Not Found'), 404
+        admin.init_app(app)
+        db.init_app(app)
+        mail.init_app(app)  # Pour l'envoi des mails
+        log_manager.init_app(app)
+        log_manager.login_message = "You must be logged to see this page"
+        log_manager.login_view = "auth.login"  # la vue qui gere les login
+        migrate = Migrate(app, db)  # Migrate object to databases
+        Bootstrap(app)
+        from app import models
+        from .auth import auth as auth_blueprint
 
-            @app.errorhandler(500)
-            def internal_server_error(error):
-                return render_template('errors/500.html', title='Server Error'), 500
+        app.register_blueprint(auth_blueprint)
+        from .home import home as home_blueprint
+
+        app.register_blueprint(home_blueprint)
+        from .client import client as client_blueprint
+
+        app.register_blueprint(client_blueprint)
+        from .engineer import eng as eng_blueprint
+
+        app.register_blueprint(eng_blueprint)
+
+
+        # for error handling
+        @app.errorhandler(403)
+        def forbidden(error):
+            return render_template('errors/403.html', title='Forbidden'), 403
+
+
+        @app.errorhandler(404)
+        def page_not_found(error):
+            return render_template('errors/404.html', title='Page Not Found'), 404
+
+
+        @app.errorhandler(500)
+        def internal_server_error(error):
+            return render_template('errors/500.html', title='Server Error'), 500
 
         return app
 
