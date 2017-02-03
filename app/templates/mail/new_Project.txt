@@ -1,0 +1,6 @@
+Dear Engineers
+Welcome to Revit Collaboration Tool!
+You are assigned to a new Project in Scopex CAE  <a href="{{url_for ('eng.myDashboard',_external=True)}}">click here </a> to contact the client for details
+Sincerly
+Scopex CAE team
+Please don't reply
